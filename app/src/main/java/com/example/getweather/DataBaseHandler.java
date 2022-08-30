@@ -67,6 +67,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
         //insert values into table
         long result = sqLiteDatabase.insertWithOnConflict("CityDetails",null, contentValues, SQLiteDatabase.CONFLICT_REPLACE);
+        sqLiteDatabase.close();
         //returns true if insertion was successful, else returns false
         return result != -1;
     }

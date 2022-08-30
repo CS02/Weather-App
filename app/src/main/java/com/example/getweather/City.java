@@ -69,7 +69,7 @@ public class City {
                                                         main.getString("pressure") +" hPa",
                                                         mainObject.getJSONObject("wind").getString("speed")+" m/s"
                                                 );
-
+                                                Log.i("isInserted", isInserted.toString());
 
                                         } catch (JSONException e) {
                                                 e.printStackTrace();

@@ -55,13 +55,18 @@ public class BackgroundTaskHandler {
                 //Looper.prepare();
                 while(true){
                     try{
-                        Thread.sleep(60000);
+                        Thread.sleep(1000);
                     }catch (Exception e){
                         Log.i("Thread Exception", "run: ");
                     }
                     updateData();
                     Boolean bool = handler.sendEmptyMessage(0);
                     Log.i("Thread", bool.toString());
+                    try{
+                        Thread.sleep(59000);
+                    }catch (Exception e){
+                        Log.i("Thread Exception", "run: ");
+                    }
                 }
             }
         };
