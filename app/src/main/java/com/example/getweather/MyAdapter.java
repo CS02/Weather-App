@@ -34,7 +34,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         View v = LayoutInflater.from(context).inflate(R.layout.cityentry,parent,false);
         return new MyViewHolder(v, recyclerViewInterface);
     }
-
+    //responsible for loading new data when scrolling
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         if(cursor.moveToPosition(position)){

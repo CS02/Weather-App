@@ -1,10 +1,15 @@
 package com.example.getweather;
 
+import static android.os.Looper.getMainLooper;
+import static android.os.Looper.myLooper;
+
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.location.LocationManager;
+import android.os.Handler;
 import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.widget.Adapter;
 
@@ -30,19 +35,24 @@ public class BackgroundTaskHandler {
     Context context;
     DataBaseHandler dataBase;
     Activity activity;
+    MyAdapter adapter;
     static int counter = 0;
 
-    public BackgroundTaskHandler(Context context) {
+    Handler handler;
+
+    public BackgroundTaskHandler(Context context, Handler handler, MyAdapter adapter) {
         this.dataBase = DataBaseHandler.getInstance(context);
         this.context = context;
+        this.handler = handler;
+        this.adapter = adapter;
     }
 
     public void updateDataBase(){
 
-        Runnable updatingRunnable = new Runnable() {
+;        Runnable updatingRunnable = new Runnable() {
             @Override
             public void run() {
-                Looper.prepare();
+                //Looper.prepare();
                 while(true){
                     try{
                         Thread.sleep(60000);
@@ -50,7 +60,8 @@ public class BackgroundTaskHandler {
                         Log.i("Thread Exception", "run: ");
                     }
                     updateData();
-
+                    Boolean bool = handler.sendEmptyMessage(0);
+                    Log.i("Thread", bool.toString());
                 }
             }
         };

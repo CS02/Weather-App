@@ -17,6 +17,9 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -56,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
     private boolean gps_enable = false;
     private boolean network_enable = false;
 
+    //Used to handle messages from second thread
+    private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,17 +84,26 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         adapter = new MyAdapter(MainActivity.this,cursor, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         //Get Location Access
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);//done
         checkLocationPermission();
         getMyLocation();
 
+        handler = new Handler(getMainLooper()){
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                super.handleMessage(msg);
+                Log.i("handled", "handleMessage: ");
+                adapter = new MyAdapter(MainActivity.this,dataBase.getdata(), MainActivity.this);
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+            }
+        };
+
         //Start Background Tasks
-        BackgroundTaskHandler bth = new BackgroundTaskHandler(MainActivity.this);
+        BackgroundTaskHandler bth = new BackgroundTaskHandler(MainActivity.this, handler, adapter);
         bth.updateDataBase();
 
-        adapter.notifyDataSetChanged();
 
     }
 

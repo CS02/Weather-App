@@ -17,6 +17,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     //singleton pattern allows only 1 instance of a database file
     private static DataBaseHandler instance = null;
 
+
     public static DataBaseHandler getInstance(Context context) {
         //if instance has not been created
         if(instance == null){
@@ -88,7 +89,9 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         contentValues.put("pressure", pressure);
         contentValues.put("windSpeed", windSpeed);
 
+
         long result = sqLiteDatabase.update("CityDetails", contentValues, "city=?", new String[]{city});
+        Log.i("result", String.valueOf(result));
         //if update was successfull returns true, else returns false
         return result != -1;
     }
