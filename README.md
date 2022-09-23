@@ -1,0 +1,4 @@
+## Overview
+This is an Android-based application which allows the user to access real-time weather data for cities in North-America. The user's location can also be used to access weather data for the user's current city. The application requests weather data from Open Weather API for 10 pre-determined cities in North America and using the latitude and longitude cordinates of the user, their current city data is also acquired. Specific weather information is carefully chosen from a JSON file (provided by the API) and stored in a SQLite database. This information is then shown to the user as a scrollable list and when a city on the list is clicked, a second screen shows further information about the city's weather information. Weather data is requested from the API and the UI is updated every minute.
+A Demo of this app can be viewed using the following link.
+https://youtu.be/uHrwf8F1MT8
